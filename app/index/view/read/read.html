@@ -1,0 +1,282 @@
+{extend name="common/base"}
+{block name="css"}
+<link rel="stylesheet" href="__IN__/css/blog.css"/>
+<link rel="stylesheet" type="text/css" href="__IN__/highlight/styles/tomorrow-night-eighties.css">
+<style>
+    .artiledetail code {
+        border-radius: 5px;
+        padding: 15px;
+        overflow: auto;
+        font-family: Consolas, Inconsolata, Courier, monospace;
+    }
+</style>
+{/block}
+{block name="body"}
+<div class="doc-container" id="doc-container">
+    <div class="container-fixed">
+        <div class="col-content" style="width:100%">
+            <div class="inner">
+                <article class="article-list">
+                    <input type="hidden" value="@Model.BlogTypeID" id="blogtypeid"/>
+                    <section class="article-item">
+                        <aside class="title" style="line-height:1.5;">
+                            <h4>{$res.title}</h4>
+                            <p class="fc-grey fs-14">
+                                <small>
+                                    作者：<a href="javascript:void(0)" target="_blank" class="fc-link">柳乘风</a>
+                                </small>
+                                <small class="ml10">围观群众：<i class="readcount">37</i></small>
+                                <small class="ml10">更新于 <label>{$res.create_time|date="Y-m-d H:i:s"}</label></small>
+                            </p>
+                        </aside>
+                        <div class="time mt10" style="padding-bottom:0;">
+                            <span class="day">22</span>
+                            <span class="month fs-18">5<small class="fs-14">月</small></span>
+                            <span class="year fs-18">2018</span>
+                        </div>
+                        <div class="content artiledetail"
+                             style="border-bottom: 1px solid #e1e2e0; padding-bottom: 20px;">
+                            {$res.content|urldecode|raw}
+                            {if condition="$res.is_origin"}
+                            <div class="copyright mt20">
+                                <p class="f-toe fc-black">
+                                    非特殊说明，本文版权归 柳乘风 所有，转载请注明出处.
+                                </p>
+                                <p class="f-toe">
+                                    本文标题：
+                                    <a href="javascript:void(0)" class="r-title">{$res.title}</a>
+                                </p>
+                                <p class="f-toe">
+                                    本文网址：
+                                    <a href="#">https://www.yanshisan.cn/Blog/Read/7</a>
+                                </p>
+                            </div>
+                            {/if}
+                            <div id="aplayer" style="margin:5px 0"></div>
+                            <h6>延伸阅读</h6>
+                            <ul class="read" style="list-style-type: none; margin-top: 10px; width: 780px;">
+
+                                {volist name="rec" id="vo"}
+                                <li style="margin:0.5rem auto"><a href="/article/{$vo.cid}/{$vo.id}">
+                                    <span style="margin: 0px; padding: 0px; margin-top: -5px;">{$vo.title}</span>
+                                </a>
+                                </li>
+                                {/volist}
+                            </ul>
+                            <ol class="b-relation">
+                                <li class="f-toe">
+                                    {if condition="$prev neq ''"}
+                                    <a href="/p/{$res.cid}/{$prev}">上一篇：{$prev_title}</a>
+                                    {else/}
+                                    <span>上一篇没有了</span>
+                                    {/if}
+                                </li>
+                                <li class="f-toe">
+                                    {if condition="$next neq ''""}
+                                    <a href="/article/{$res.cid}/{$next}">下一篇：{$next_title}</a>
+                                    {else/}
+                                    <span>下一篇没有了</span>
+                                    {/if}
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="bdsharebuttonbox share bdshare-button-style0-32" data-tag="share_1"
+                             data-bd-bind="1560061047064">
+                            <ul>
+                                <li class="f-praise"><i style="color: #f46753;" class="fa fa-thumbs-o-up"
+                                                        aria-hidden="true"></i></li>
+                                <li class="f-weinxi"><i style="color:#5ac64f" class="fa fa-weixin"
+                                                        aria-hidden="true"></i></li>
+                                <li class="f-sina"><i style="color: #ff7171;" class="fa fa-weibo"
+                                                      aria-hidden="true"></i></li>
+                                <li class="f-qq"><i class="fa fa-qq"></i></li>
+                            </ul>
+                        </div>
+                        <div class="f-cb"></div>
+                        <div class="mt20 f-fwn fs-24 fc-grey comment"
+                             style="border-top: 1px solid #e1e2e0; padding-top: 20px;">
+                        </div>
+                        <fieldset class="layui-elem-field layui-field-title">
+                            <legend>发表评论</legend>
+                            <div class="layui-field-box">
+                                <div class="leavemessage" style="text-align:initial">
+                                    {if $Request.session.user_name}
+                                    <form class="layui-form blog-editor" action="">
+                                        <input type="hidden" name="aid" value="{$res.id}">
+                                        <input type="hidden" name="cid" value="{$res.cid}">
+                                        <div class="layui-form-item">
+                                            <textarea name="user_comment" lay-verify="content" id="remarkEditor"
+                                                      class="layui-textarea layui-hide"></textarea>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <button class="layui-btn" lay-submit="formLeaveMessage"
+                                                    lay-filter="formLeaveMessage">提交留言
+                                            </button>
+                                            <div class="layui-form-item" style="float: right;">
+                                                <label class="layui-form-label">提醒一下！</label>
+                                                <div class="layui-input-block">
+                                                    <input type="checkbox" value="1" name="send_email" lay-skin="switch"
+                                                           lay-text="提醒|关闭">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    {else/}
+                                    <form class="layui-form blog-editor" action="">
+                                        <input type="hidden" name="aid" value="{$res.id}">
+                                        <input type="hidden" name="cid" value="{$res.cid}">
+                                        <div class="layui-form-item">
+                                            <textarea name="user_comment" lay-verify="content" id="remarkEditor"
+                                                      placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <button class="layui-btn" lay-submit="formLeaveMessage"
+                                                    lay-filter="formLeaveMessage">提交留言
+                                            </button>
+                                            <div class="layui-form-item" style="float: right;">
+                                                <label class="layui-form-label">提醒一下！</label>
+                                                <div class="layui-input-block">
+                                                    <input type="checkbox" value="1" name="send_email" lay-skin="switch"
+                                                           lay-text="提醒|关闭">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    {/if}
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!--评论-->
+                        <ul class="blog-comment" id="blog-comment" page-count="1">
+                            {volist name="comment" id="vo"}
+                            <li>
+                                <div class="comment-parent"><a name="remark-{$vo.id}"></a><img
+                                        src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=XRicUMzmGp7Morg1UcAtADg&amp;s=100"
+                                        alt="☼">
+                                    <div class="info"><span class="username">{$vo.user_name|urldecode}</span></div>
+                                    <div class="comment-content">{$vo.user_comment|urldecode|raw}</div>
+                                    <p class="info info-footer"><span class="comment-time"> {$vo.create_time|transfer_time}</span><a
+                                            href="javascript:;" class="btn-reply" data-targetid="{$vo.uid}"
+                                            data-targetname="{$vo.user_name|urldecode}">回复</a></p></div>
+                                <hr>
+                                {volist name="reply" id="voo"}
+                                <div class="comment-child"><a name="reply-{$voo.id}"></a> <img
+                                        src="https://thirdqq.qlogo.cn/g?b=oidb&amp;k=4o1ExEW6tDIG3zUdx2I01A&amp;s=100"
+                                        alt="{$voo.uid}/">
+                                    <div class="info"><span class="username">{$voo.uid}</span> <span
+                                            style="padding-right:0;margin-left:-5px;">回复</span> <span
+                                            class="username">{$vo.user_name|urldecode}</span> <span>{$voo.content|raw}</span></div>
+                                    <p class="info"><span class="comment-time">{$voo.create_time|transfer_time}</span> <a
+                                            href="javascript:;" class="btn-reply" data-targetid="{$voo.uid}"
+                                            data-targetname="{$voo.uid}">回复</a></p>
+                                </div>
+                                {/volist}
+
+
+                                <div class="replycontainer layui-hide">
+                                    <form class="layui-form" action=""><input type="hidden" name="remarkId" value="{$vo.id}">
+                                        <input type="hidden" name="targetUserId" value="0"> <input type="hidden"
+                                                                                                   name="aid"
+                                                                                                   value="{$res.id}">
+                                        <div class="layui-form-item"><textarea name="replyContent"
+                                                                               lay-verify="replyContent"
+                                                                               placeholder="请输入回复内容"
+                                                                               class="layui-textarea"
+                                                                               style="min-height:80px;"></textarea>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <button class="layui-btn layui-btn-xs" lay-submit="formReply"
+                                                    lay-filter="formReply">提交
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            {/volist}
+                            <div class="layui-flow-more">没有更多了</div>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="f-cb"></div>
+
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script src="__IN__/js/pagecomment.js"></script>
+<script src="__IN__/highlight/highlight.pack.js"></script>
+<script>
+    //代码高亮
+    hljs.initHighlightingOnLoad();
+    var allpre = document.getElementsByTagName("pre");
+    for (var i = 0; i < allpre.length; i++) {
+        var onepre = document.getElementsByTagName("pre")[i];
+        var mycode = document.getElementsByTagName("pre")[i].innerHTML;
+        onepre.innerHTML = '<code class="mycode">' + mycode + '</code>';
+    }
+    //点赞
+    $("#user_like").click(function () {
+        if ($(this).is('.unlike')) {
+            layer.msg('您已经点过赞了！感谢您的支持。', {anim: 6});
+            return;
+        }
+        $("#user_like").removeClass('like shake shake-hard');
+        var aid = $(this).attr('aid');
+        var cid = $(this).attr('cid');
+        $.ajax({
+            url: "/like/" + aid + "/" + cid,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.status == 1) {
+                    var click = $(".votecount").text();
+
+                    $("#user_like").addClass('unlike');
+
+                    click++;
+                    $(".votecount").html(click);
+                    layer.msg(res.msg, {anim: 7});
+                } else {
+                    layer.msg(res.msg, {anim: 5});
+                }
+            }
+        });
+    });
+    //上传
+    layui.use('layedit', function () {
+        var layedit = layui.layedit;
+        layedit.set({
+            uploadImage: {
+                url: '{:url("Article/uploadImg")}' //接口url
+            }
+        });
+        var index = layedit.build("remarkEditor");
+        $("#get_comment").click(function () {
+            layedit.sync(index);
+            $.ajax({
+                url: "{:url('Article/comment')}",
+                data: $("#form1").serialize(),
+                type: 'POST',
+                dataType: "json",
+                async: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        layer.alert(res.msg, {
+                            title: "操作",
+                            btn: ['确定']
+                        }, function () {
+                            window.parent.location.reload();
+                        });
+
+                    } else {
+                        layer.msg(res.msg, {anim: 6});
+                    }
+                }
+            })
+        });
+    });
+</script>
+{/block}

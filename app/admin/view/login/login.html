@@ -1,0 +1,106 @@
+﻿{include file="public/css"}
+<link href="__AD__/slidercaptcha/slidercaptcha.css" rel="stylesheet">
+<style>
+    .login-container .loginbox{
+        height: 513px !important;
+    }
+</style>
+<div class="login-container animated fadeInDown">
+    <form action="" method="post">
+    <div class="loginbox bg-white">
+        <div class="loginbox-title">SIGN IN</div>
+        <div class="loginbox-social">
+            <div class="social-title ">Connect with Your Social Accounts</div>
+            <div class="social-buttons">
+                <a href="" class="button-facebook">
+                    <i class="social-icon fa fa-facebook"></i>
+                </a>
+                <a href="" class="button-twitter">
+                    <i class="social-icon fa fa-twitter"></i>
+                </a>
+                <a href="" class="button-google">
+                    <i class="social-icon fa fa-google-plus"></i>
+                </a>
+            </div>
+        </div>
+        <div class="loginbox-or">
+            <div class="or-line"></div>
+            <div class="or">OR</div>
+        </div>
+        <div class="loginbox-textbox">
+            <input type="text" class="form-control" placeholder="username" name="username"/>
+        </div>
+        <div class="loginbox-textbox">
+            <input type="password" class="form-control" placeholder="Password" name="password" />
+        </div>
+        <div class="loginbox-forgot">
+            <a href="#" onclick="forgotPass()">Forgot Password?</a>
+        </div>
+        <div class="loginbox-textbox">
+            <div id="captcha"></div>
+        </div>
+    </div>
+        <!--<input type="button" class="btn btn-primary btn-block" value="Login">-->
+</form>
+</div>
+{include file="public/foot"}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="__AD__/slidercaptcha/slidercaptcha.js"></script>
+<script>
+    function forgotPass(){
+        layer.msg("你食屎呀！密码都记木住 - -!!",{icon: 6});
+    }
+    $('#captcha').sliderCaptcha({
+        width: 230,
+        repeatIcon: 'fa fa-redo',
+        setSrc: function () {
+            return 'https://picsum.photos/200/300?random=' + Math.round(Math.random() * 50);
+        },
+        onSuccess: function () {
+            var username = $("input[type=text]").val();
+            var passwords = $("input[type=password]").val();
+            $.ajax({
+                type:"POST",
+                dateType:"json",
+                url:"{:url('login/login')}",
+                data:{username:username,password:passwords},
+                success: function(res){
+                    console.log(res);
+                    if(res.status != 1){
+                        layer.msg(res.msg,{icon: 2});
+                    }else{
+                        layer.msg(res.msg,{icon: 1});
+                        setTimeout(function(){
+                            window.location.href="{:url('index/index')}";
+                        },800);
+                    }
+                }
+            });
+        },
+        offset: 10,
+    });
+    $("input[type=button]").on('click',function(){
+        var username = $("input[type=text]").val();
+        var passwords = $("input[type=password]").val();
+
+        $.ajax({
+            type:"POST",
+            dateType:"json",
+            url:"{:url('login/login')}",
+            data:{username:username,password:passwords},
+            success: function(res){
+                if(res.status != 1){
+                    layer.msg(res.msg,{icon: 2});
+                }else{
+                    layer.msg(res.msg,{icon: 1});
+                    setTimeout(function(){
+                        window.location.href="{:url('index/index')}";
+                    },800);
+                }
+            }
+        });
+    });
+</script>
+</body>
+<!--Body Ends-->
+</html>

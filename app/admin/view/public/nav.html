@@ -1,0 +1,272 @@
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                    <small>
+                        <img src="__AD__/img/logo.png" alt="" />
+                    </small>
+                </a>
+            </div>
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="collapse-icon fa fa-bars"></i>
+            </div>
+            <div class="navbar-header pull-right">
+                <div class="navbar-account">
+                    <ul class="account-area">
+                        <li>
+                            <a class=" dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
+                                <i class="icon fa fa-warning"></i>
+                            </a>
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-phone bg-themeprimary white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Skype meeting with Patty</span>
+                                                <span class="description">01:00 pm</span>
+                                            </div>
+                                            <div class="notification-extra">
+                                                <i class="fa fa-clock-o themeprimary"></i>
+                                                <span class="description">office</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-check bg-darkorange white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Uncharted break</span>
+                                                <span class="description">03:30 pm - 05:15 pm</span>
+                                            </div>
+                                            <div class="notification-extra">
+                                                <i class="fa fa-clock-o darkorange"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-gift bg-warning white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Kate birthday party</span>
+                                                <span class="description">08:30 pm</span>
+                                            </div>
+                                            <div class="notification-extra">
+                                                <i class="fa fa-calendar warning"></i>
+                                                <i class="fa fa-clock-o warning"></i>
+                                                <span class="description">at home</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <div class="notification-icon">
+                                                <i class="fa fa-glass bg-success white"></i>
+                                            </div>
+                                            <div class="notification-body">
+                                                <span class="title">Dinner with friends</span>
+                                                <span class="description">10:30 pm</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="dropdown-footer ">
+                                    <span>
+                                        Today, March 28
+                                    </span>
+                                    <span class="pull-right">
+                                        10°c
+                                        <i class="wi wi-cloudy"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                            <!--/Notification Dropdown-->
+                        </li>
+                        <li>
+                            <a class="wave in dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
+                                <i class="icon fa fa-envelope"></i>
+                                <span class="badge">{$comment_count}</span>
+                            </a>
+                            <!--Messages Dropdown-->
+                            <?php if(!empty($comment)): ?>
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-messages">
+                                <?php foreach($comment as $item):?>
+                                <li>
+                                    <a href="{:url('comment/index')}">
+                                        <img src="__AD__/img/avatars/bing.png" class="message-avatar">
+                                        <div class="message">
+                                            <span class="message-sender">
+                                               <?php echo $item['user_name']?>
+                                            </span>
+                                            <span class="message-time">
+                                                <?php echo transfer_time($item['create_time'])?>
+                                            </span>
+                                            <span class="message-subject">
+                                                <?php echo $item['address']?>
+                                            </span>
+                                            <span class="message-body">
+                                                <?php echo $item['user_comment']?>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <?php endforeach;?>
+                            </ul>
+                            <?php endif;?>
+                            <!--/Messages Dropdown-->
+                        </li>
+
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
+                                <i class="icon fa fa-tasks"></i>
+                                <span class="badge">4</span>
+                            </a>
+                            <!--Tasks Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">
+                                <li class="dropdown-header bordered-darkorange">
+                                    <i class="fa fa-tasks"></i>
+                                    4 Tasks In Progress
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Account Creation</span>
+                                            <span class="pull-right">65%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:65%" class="progress-bar"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Profile Data</span>
+                                            <span class="pull-right">35%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:35%" class="progress-bar progress-bar-success"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Updating Resume</span>
+                                            <span class="pull-right">75%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:75%" class="progress-bar progress-bar-darkorange"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="clearfix">
+                                            <span class="pull-left">Adding Contacts</span>
+                                            <span class="pull-right">10%</span>
+                                        </div>
+
+                                        <div class="progress progress-xs">
+                                            <div style="width:10%" class="progress-bar progress-bar-warning"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="dropdown-footer">
+                                    <a href="#">
+                                        See All Tasks
+                                    </a>
+                                    <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                <div class="avatar" title="View your public profile">
+                                    <img src="{$avatar}">
+                                </div>
+                                <section>
+                                    <h2><span class="profile"><span>{$Request.session.username} Stevenson</span></span></h2>
+                                </section>
+                            </a>
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                <li class="username"><a>{$Request.session.username} Stevenson</a></li>
+                                <li class="email"><a>{$Request.session.username}.Stevenson@live.com</a></li>
+                                <!--Avatar Area-->
+                                <li>
+                                    <div class="avatar-area">
+                                        <img src="{$avatar}" class="avatar">
+                                        <span class="caption">Change Photo</span>
+                                    </div>
+                                </li>
+                                <li class="edit">
+                                    <a href="{:url('admin/edit',array('id'=>$Request.session.id))}" class="pull-right">修改</a>
+                                </li>
+                                <li class="theme-area">
+                                    <ul class="colorpicker" id="skin-changer">
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="__AD__/css/skins/blue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="__AD__/css/skins/azure.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="__AD__/css/skins/teal.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="__AD__/css/skins/green.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="__AD__/css/skins/orange.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="__AD__/css/skins/pink.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="__AD__/css/skins/darkred.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="__AD__/css/skins/purple.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="__AD__/css/skins/darkblue.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="__AD__/css/skins/gray.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="__AD__/css/skins/black.min.css"></a></li>
+                                        <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="__AD__/css/skins/deepblue.min.css"></a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-footer">
+                                    <a href="{:url('login/logout')}">
+                                        Sign out  <i class="glyphicon glyphicon-log-out"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul><div class="setting">
+                        <a id="btn-setting" title="Setting" href="#">
+                            <i class="icon glyphicon glyphicon-cog"></i>
+                        </a>
+                    </div><div class="setting-container">
+                        <label>
+                            <input type="checkbox" id="checkbox_fixednavbar">
+                            <span class="text">Fixed Navbar</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkbox_fixedsidebar">
+                            <span class="text">Fixed SideBar</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkbox_fixedbreadcrumbs">
+                            <span class="text">Fixed BreadCrumbs</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkbox_fixedheader">
+                            <span class="text">Fixed Header</span>
+                        </label>
+                    </div>
+                    <!-- Settings -->
+                </div>
+            </div>
+            <!-- /Account Area and Settings -->
+        </div>
+    </div>
+    </div>

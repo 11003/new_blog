@@ -1,0 +1,19 @@
+<script src="__AD__/js/jquery-2.0.3.min.js"></script>
+<script src="__AD__/layer/layer.js"></script>
+<script src="__AD__/js/bootstrap.min.js"></script>
+<script src="__AD__/js/beyond.min.js"></script>
+
+
+{include file="public/script"}
+<script>
+    // If you want to draw your charts with Theme colors you must run initiating charts after that current skin is loaded
+    $(window).bind("load", function () {
+        layer.photos({
+            photos: '.layer_view'
+            ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        });
+    });
+
+</script>
+
+

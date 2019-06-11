@@ -1,0 +1,64 @@
+{include file="public/css"}
+<div class="main-container container-fluid">
+    <div class="page-container">
+        <div class="page-content">
+            <div class="page-body">
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="widget">
+                            <div class="widget-header bordered-bottom bordered-blue">
+                                <span class="widget-caption">增加管理员</span>
+                            </div>
+                            <div class="widget-body">
+                                <div id="horizontal-form">
+                                    <form class="form-horizontal" id="add_form" action-url="{:url('admin/addPost')}">
+
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label no-padding-right">所属权限组</label>
+                                            <div class="col-sm-6">
+                                                <select name="group_id" class="form-control">
+                                                    {volist name="auth_group" id="vo"}
+                                                    <option value="{$vo.id}">{$vo.title}</option>
+                                                    {/volist}
+                                                </select>
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label no-padding-right">名称</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" required placeholder="名称" name="username" type="text">
+                                            </div>
+                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label no-padding-right">密码</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control a" required placeholder="密码" name="password" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label no-padding-right">确认密码</label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control b" required  placeholder="确认密码" name="password_confirm" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="button" class="btn btn-default" onclick="SaveInfoAdd()">保存信息</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/foot"}
